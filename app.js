@@ -45,6 +45,10 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
     {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
 
+  var lists = [];
+  lists['upcoming'] = upcoming;
+  lists['history'] = history;
+
   $window.onYouTubeIframeAPIReady = function () {
     $log.info('Youtube API is ready');
     youtube.ready = true;
@@ -142,9 +146,9 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
   };
 
   this.deleteVideo = function (list, id) {
-    for (var i = list.length - 1; i >= 0; i--) {
-      if (list[i].id === id) {
-        list.splice(i, 1);
+    for (var i = lists[list].length - 1; i >= 0; i--) {
+      if (lists[list][i].id === id) {
+        lists[list].splice(i, 1);
         break;
       }
     }
@@ -202,7 +206,7 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.search = function () {
       $http.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY',
+          key: 'AIzaSyANLGjM3FH5DsqkkLHFO_K5QOb5SdF47qk',
           type: 'video',
           maxResults: '8',
           part: 'id,snippet',
